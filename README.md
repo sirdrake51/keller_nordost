@@ -15,7 +15,7 @@ Getested wurde alles unter MacOs 12.
 ## Setup
 * Installation von Docker-Desktop, Extension Portainer installiern 
 ![6097a7b03b7f8a144993184cf03aab5f.png](resources/541988e0bbf8459c8d8b30c7ee910a0c.png)
-![Docker-Portainer](https://github.com/sirdrake51/measuring_from_keller_pressure/docker-portainer-extension.png)
+![Docker-Portainer](https://github.com/sirdrake51/keller_nordost/docker-portainer-extension.png)
 * Installation von Visualstudio Code, Erweiterung für Docker installieren
 * GitHub Verzeichnis herunter laden (cloning)
 
@@ -24,21 +24,21 @@ Getested wurde alles unter MacOs 12.
 Zunächst das Githab Respository in ein lokales Verzeichnis clonen.
 Das lokale Verzeichnis mit VisualStudio Code öffnen.
 ![e9cf64b9eda37c85a0c79964bc7fe3bb.png](resources/d398e7456139482f9e54c49901838b29.png)
-![Visual-Studio](https://github.com/sirdrake51/measuring_from_keller_pressure/visualstudio.png)
+![Visual-Studio](https://github.com/sirdrake51/keller_nordost/visualstudio.png)
 
 Docker-Desktop öffnen und im Plugin Portainer ein neues Netzwerk mit dem Namen Keller anlegen, da wird für die Kommunikation der Container untereinander benötigt.
 (Bild)
 ![ca53be06ccd9300ff8eec4ed56152c7b.png](resources/d8d1cc4d01554a1a9613fef1dc95f932.png)
-![Portainer-Network](https://github.com/sirdrake51/measuring_from_keller_pressure/portainer-network.png)
+![Portainer-Network](https://github.com/sirdrake51/keller_nordost/portainer-network.png)
 
 **NodeRed**
 In VisualStudio Code die Datei „ Nodered“ mit Docker starten.
 (Bild)
 ![018665c4c260dc87b090cff4b585049f.png](resources/642a9e5f087140d4b630f8d445036f0f.png)
-![VisualStudio-compose](https://github.com/sirdrake51/measuring_from_keller_pressure/visualstudio-compose.png)
+![VisualStudio-compose](https://github.com/sirdrake51/keller_nordost/visualstudio-compose.png)
 Im Webbrowser sollte unter [nodered](http://localhost:1880) die Weboberfläche von NodeRed gestartet sein.
 ![8550ab426ad7600ef6673c816b5bf28c.png](resources/42d96452cdf54f49b8176e863dac5fec.png)
-![Nodered-Menu](https://github.com/sirdrake51/measuring_from_keller_pressure/nodered/nodered-menu.png)
+![Nodered-Menu](https://github.com/sirdrake51/keller_nordost/nodered/nodered-menu.png)
 
 In NodeRed nun unter dem „drei Strich Menü" den Flow aus dem GitHub Verzeichnis importieren.
 Nach dem Import erscheint die Fehlermeldung des nicht installierten NodeRed Plugins „influx“.  Das sollte noch nach installiert werden, unter Pallette verwalten.
