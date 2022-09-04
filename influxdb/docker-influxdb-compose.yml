@@ -1,0 +1,71 @@
+# aus https://www.laub-home.de/wiki/InfluxDB_und_Chronograf_Docker_Installation
+# https://github.com/jkehres/docker-compose-influxdb-grafana
+version: "3.7"
+services:
+  influxdb:
+    image: influxdb:1.8.10
+    restart: always
+    environment:
+      - INFLUXDB_DATA_ENGINE=tsm1
+      - INFLUXDB_REPORTING_DISABLED=false
+      - INFLUXDB_ADMIN_USER=${INFLUXDB_ADMIN_USER}
+      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_ADMIN_PASSWORD}
+      - INFLUXDB_USER=${INFLUXDB_USER}
+      - INFLUXDB_USER_PASSWORD=${INFLUXDB_USER_PASSWORD}
+      - INFLUXDB_READ_USER=${INFLUXDB_READ_USER}
+      - INFLUXDB_READ_USER_PASSWORD=${INFLUXDB_READ_USER_PASSWORD}
+      - INFLUXDB_DB=${INFLUXDB_DB}
+      - INFLUXDB_HTTP_LOG_ENABLED=false
+      - INFLUXDB_META_LOGGING_ENABLED=false
+      - INFLUXDB_DATA_QUERY_LOG_ENABLED=false
+      - INFLUXDB_LOGGING_LEVEL=warn
+      - TZ=${TZ}
+#    labels:
+#        com.centurylinklabs.watchtower.enable: "true"
+    ports:
+      - 8086:8086
+    volumes:
+      # Mount for influxdb data directory and configuration
+      - influxdb-storage-data:/var/lib/influxdb:rw
+      - influxdb-storage:/etc/influxdb:rw
+    networks:
+      - keller
+  chronograf:
+    image: chronograf:latest
+    ports:
+      - '8888:8888'
+    volumes:
+      - chronograf-storage:/var/lib/chronograf
+    depends_on:
+      - influxdb
+    environment:
+      - INFLUXDB_URL=http://influxdb:8086
+      - INFLUXDB_USERNAME=${INFLUXDB_USERNAME}
+      - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
+    networks:
+      - keller
+  grafana:
+    image: grafana/grafana:7.5.16
+    ports:
+      - '3000:3000'
+    volumes:
+      - grafana-storage:/var/lib/grafana
+ #     - ./grafana-provisioning/:/etc/grafana/provisioning
+    depends_on:
+      - influxdb
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USERNAME}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+    networks:
+      - keller
+#        aliases:
+# - influxdb
+volumes:
+  influxdb-storage:
+  influxdb-storage-data:
+  chronograf-storage:
+  grafana-storage:
+networks:
+  keller:
+#    driver: bridge
+    external: true

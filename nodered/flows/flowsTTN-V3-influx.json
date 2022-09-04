@@ -1,0 +1,613 @@
+[
+    {
+        "id": "f61112c8.9ef18",
+        "type": "tab",
+        "label": "TTN-V3-Influx",
+        "disabled": false,
+        "info": "24.07.22 Umzug auf noderedV3\nneue Keller Devices"
+    },
+    {
+        "id": "bf170c80.9809d",
+        "type": "mqtt in",
+        "z": "f61112c8.9ef18",
+        "name": "ADT1-NodeV3-400",
+        "topic": "v3/keller@ttn/devices/adt-400/up",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "c3a8107b.b5019",
+        "nl": false,
+        "rap": false,
+        "rh": "0",
+        "inputs": 0,
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "2c7bddfe.ef8852",
+                "101333c5.b609fc",
+                "a565ec10.155a9",
+                "bebbfc92.14774",
+                "9a5fe2e6.ee2f8"
+            ]
+        ]
+    },
+    {
+        "id": "adc43c09.0ffa9",
+        "type": "mqtt in",
+        "z": "f61112c8.9ef18",
+        "name": "ADT1-NodeV3-332",
+        "topic": "v3/keller@ttn/devices/eui-e8e8b7000040cdd1/up",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "c3a8107b.b5019",
+        "nl": false,
+        "rap": false,
+        "rh": "0",
+        "inputs": 0,
+        "x": 130,
+        "y": 400,
+        "wires": [
+            [
+                "eaebc61c.a5f188",
+                "a3f3f697.07809",
+                "a68a68de.99a56",
+                "478745d2.240a7c",
+                "99355547.65377",
+                "44f22d5b.1de1ac"
+            ]
+        ]
+    },
+    {
+        "id": "2c7bddfe.ef8852",
+        "type": "debug",
+        "z": "f61112c8.9ef18",
+        "name": "rohdaten400",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 60,
+        "wires": [],
+        "info": "https://www.thethingsindustries.com/docs/integrations/node-red/receive/\n\nConfigure Debug Nodes\n\nAdd two debug nodes and connect both to the mqtt in node. One debug node will listen to the events, while the other will listen to published messages.\nNote:\nYou can also subscribe to \n\nv3/{application_id}/devices/{device_id}/up \n\nto \nonly listen to uplink messages coming from end devices, as mentioned in MQTT Server guide.\nhttps://www.thethingsindustries.com/docs/integrations/mqtt/\n\nSet the Output parameters of these nodes to complete msg object and msg.payload.\nDeploy"
+    },
+    {
+        "id": "eaebc61c.a5f188",
+        "type": "debug",
+        "z": "f61112c8.9ef18",
+        "name": "rohdaten332",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 420,
+        "wires": [],
+        "info": "https://www.thethingsindustries.com/docs/integrations/node-red/receive/\n\nConfigure Debug Nodes\n\nAdd two debug nodes and connect both to the mqtt in node. One debug node will listen to the events, while the other will listen to published messages.\nNote:\nYou can also subscribe to \n\nv3/{application_id}/devices/{device_id}/up \n\nto \nonly listen to uplink messages coming from end devices, as mentioned in MQTT Server guide.\nhttps://www.thethingsindustries.com/docs/integrations/mqtt/\n\nSet the Output parameters of these nodes to complete msg object and msg.payload.\nDeploy"
+    },
+    {
+        "id": "bebbfc92.14774",
+        "type": "change",
+        "z": "f61112c8.9ef18",
+        "name": "RSSI-V3 extrahieren",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.uplink_message.rx_metadata.rssi",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 160,
+        "wires": [
+            [
+                "377c4825.cf7738"
+            ]
+        ]
+    },
+    {
+        "id": "9a5fe2e6.ee2f8",
+        "type": "change",
+        "z": "f61112c8.9ef18",
+        "name": "battery_voltage-V3 extrahieren",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.uplink_message.decoded_payload.battery_voltage",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 100,
+        "wires": [
+            [
+                "95c4953f.ff3fe8"
+            ]
+        ]
+    },
+    {
+        "id": "682fa69a.2f25c8",
+        "type": "change",
+        "z": "f61112c8.9ef18",
+        "name": "TOB1-V3 extrahieren",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.uplink_message.decoded_payload.TOB1",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "101333c5.b609fc",
+        "type": "change",
+        "z": "f61112c8.9ef18",
+        "name": "TBaro-V3 extrahieren",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.uplink_message.decoded_payload.TBaro",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 40,
+        "wires": [
+            [
+                "b03bb606.3fe648"
+            ]
+        ]
+    },
+    {
+        "id": "a565ec10.155a9",
+        "type": "change",
+        "z": "f61112c8.9ef18",
+        "name": "PBaro-V3 extrahieren",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.uplink_message.decoded_payload.PBaro",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 220,
+        "wires": [
+            [
+                "f78f4acb.35c038"
+            ]
+        ]
+    },
+    {
+        "id": "f78f4acb.35c038",
+        "type": "range",
+        "z": "f61112c8.9ef18",
+        "minin": "0",
+        "maxin": "1",
+        "minout": "0",
+        "maxout": "1000",
+        "action": "scale",
+        "round": false,
+        "property": "payload",
+        "name": "Umformer",
+        "x": 620,
+        "y": 220,
+        "wires": [
+            [
+                "c2ca9b67.3517b8"
+            ]
+        ]
+    },
+    {
+        "id": "478745d2.240a7c",
+        "type": "change",
+        "z": "f61112c8.9ef18",
+        "name": "RSSI-V3 extrahieren",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.uplink_message.rx_metadata.rssi",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 520,
+        "wires": [
+            [
+                "3f90ebec.670e54"
+            ]
+        ]
+    },
+    {
+        "id": "a68a68de.99a56",
+        "type": "change",
+        "z": "f61112c8.9ef18",
+        "name": "battery_voltage-V3 extrahieren",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.uplink_message.decoded_payload.battery_voltage",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 460,
+        "wires": [
+            [
+                "ecc3f594.9c1d28"
+            ]
+        ]
+    },
+    {
+        "id": "44f22d5b.1de1ac",
+        "type": "change",
+        "z": "f61112c8.9ef18",
+        "name": "TOB1-V3 extrahieren",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.uplink_message.decoded_payload.TOB1",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a3f3f697.07809",
+        "type": "change",
+        "z": "f61112c8.9ef18",
+        "name": "TBaro-V3 extrahieren",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.uplink_message.decoded_payload.TBaro",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 400,
+        "wires": [
+            [
+                "cbf4adcc.f92f5"
+            ]
+        ]
+    },
+    {
+        "id": "99355547.65377",
+        "type": "change",
+        "z": "f61112c8.9ef18",
+        "name": "PBaro-V3 extrahieren",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.uplink_message.decoded_payload.PBaro",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 580,
+        "wires": [
+            [
+                "89f1d6c8.72686"
+            ]
+        ]
+    },
+    {
+        "id": "89f1d6c8.72686",
+        "type": "range",
+        "z": "f61112c8.9ef18",
+        "minin": "0",
+        "maxin": "1",
+        "minout": "0",
+        "maxout": "1000",
+        "action": "scale",
+        "round": false,
+        "property": "payload",
+        "name": "Umformer",
+        "x": 640,
+        "y": 580,
+        "wires": [
+            [
+                "1402bf1a.6b6d19"
+            ]
+        ]
+    },
+    {
+        "id": "b03bb606.3fe648",
+        "type": "influxdb out",
+        "z": "f61112c8.9ef18",
+        "influxdb": "b592091a.d14038",
+        "name": "TempLuft-ADT400",
+        "measurement": "TempLuft-ADT400",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "",
+        "bucket": "",
+        "x": 850,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "95c4953f.ff3fe8",
+        "type": "influxdb out",
+        "z": "f61112c8.9ef18",
+        "influxdb": "b592091a.d14038",
+        "name": "Voltage-ADT400",
+        "measurement": "Voltage-ADT400",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "",
+        "retentionPolicyV18Flux": "",
+        "org": "",
+        "bucket": "",
+        "x": 840,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "377c4825.cf7738",
+        "type": "influxdb out",
+        "z": "f61112c8.9ef18",
+        "influxdb": "b592091a.d14038",
+        "name": "RSSI-ADT400",
+        "measurement": "RSSI-ADT400",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "",
+        "retentionPolicyV18Flux": "",
+        "org": "",
+        "bucket": "",
+        "x": 840,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "c2ca9b67.3517b8",
+        "type": "influxdb out",
+        "z": "f61112c8.9ef18",
+        "influxdb": "b592091a.d14038",
+        "name": "PBaro-ADT400",
+        "measurement": "PBaro-ADT400",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "",
+        "retentionPolicyV18Flux": "",
+        "org": "",
+        "bucket": "",
+        "x": 840,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "cbf4adcc.f92f5",
+        "type": "influxdb out",
+        "z": "f61112c8.9ef18",
+        "influxdb": "b592091a.d14038",
+        "name": "TempLuft-ADT332",
+        "measurement": "TempLuft-ADT332",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "",
+        "retentionPolicyV18Flux": "",
+        "org": "",
+        "bucket": "",
+        "x": 870,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "ecc3f594.9c1d28",
+        "type": "influxdb out",
+        "z": "f61112c8.9ef18",
+        "influxdb": "b592091a.d14038",
+        "name": "Voltage-ADT332",
+        "measurement": "Voltage-ADT332",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "",
+        "retentionPolicyV18Flux": "",
+        "org": "",
+        "bucket": "",
+        "x": 860,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "3f90ebec.670e54",
+        "type": "influxdb out",
+        "z": "f61112c8.9ef18",
+        "influxdb": "b592091a.d14038",
+        "name": "RSSI-ADT332",
+        "measurement": "RSSI-ADT332",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "",
+        "retentionPolicyV18Flux": "",
+        "org": "",
+        "bucket": "",
+        "x": 860,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "1402bf1a.6b6d19",
+        "type": "influxdb out",
+        "z": "f61112c8.9ef18",
+        "influxdb": "b592091a.d14038",
+        "name": "PBaro-ADT332",
+        "measurement": "PBaro-ADT332",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "",
+        "retentionPolicyV18Flux": "",
+        "org": "",
+        "bucket": "",
+        "x": 860,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "c3a8107b.b5019",
+        "type": "mqtt-broker",
+        "name": "TTNV3",
+        "broker": "eu1.cloud.thethings.network",
+        "port": "8883",
+        "tls": "b3430620.0504a8",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "compatmode": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "b592091a.d14038",
+        "type": "influxdb",
+        "hostname": "localhost",
+        "port": "8086",
+        "protocol": "http",
+        "database": "keller_db",
+        "name": "influx1.8",
+        "usetls": false,
+        "tls": "d50d0c9f.31e858",
+        "influxdbVersion": "1.x",
+        "url": "http://localhost:8086",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "b3430620.0504a8",
+        "type": "tls-config",
+        "name": "letsencrypt-traefik",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "nodered.winterboe.selfhost.bz.crt",
+        "keyname": "nodered.winterboe.selfhost.bz.key",
+        "caname": "isrgrootx1.pem",
+        "servername": "nodered.winterboe.selfhost.bz",
+        "verifyservercert": true,
+        "alpnprotocol": ""
+    },
+    {
+        "id": "d50d0c9f.31e858",
+        "type": "tls-config",
+        "name": "direkter traefik",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false,
+        "alpnprotocol": ""
+    }
+]
