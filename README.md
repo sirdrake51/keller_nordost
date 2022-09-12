@@ -14,7 +14,9 @@ Getested wurde alles unter MacOs 12.
 
 ## Setup
 * Installation von Docker-Desktop, Extension Portainer installiern 
+
 ![Docker-Portainer](https://raw.githubusercontent.com/sirdrake51/keller_nordost/master/docker-portainer-extension.png)
+
 * Installation von Visualstudio Code, Erweiterung für Docker installieren
 * GitHub Verzeichnis herunter laden (cloning)
 
@@ -30,13 +32,16 @@ Docker-Desktop öffnen und im Plugin Portainer ein neues Netzwerk mit dem Namen 
 
 **NodeRed**
 In VisualStudio Code die Datei „ Nodered“ mit Docker starten.
+
 ![VisualStudio-compose](https://raw.githubusercontent.com/sirdrake51/keller_nordost/master/visualstudio-compose.png)
+
 Im Webbrowser sollte unter [nodered](http://localhost:1880) die Weboberfläche von NodeRed gestartet sein.
+
 ![Nodered-Menu](https://raw.githubusercontent.com/sirdrake51/keller_nordost/master/nodered/nodered-menu.png)
 
 In NodeRed nun unter dem „drei Strich Menü" den Flow aus dem GitHub Verzeichnis importieren.
 Nach dem Import erscheint die Fehlermeldung des nicht installierten NodeRed Plugins „influx“.  Das sollte noch nach installiert werden, unter Pallette verwalten.
-(Bild)
+
 ![Influx-Plugin](https://raw.githubusercontent.com/sirdrake51/keller_nordost/master/nodered-install-influxdb.png)
 
 Danach müssen für TTN und für Influx die korrekten Verbindungen her gerichtet werden. Dies umfasst die User und Passwörter nebst der Token (ja nach APP). Siehe dazu auch
@@ -48,8 +53,8 @@ Ist das erledigt, kann mit "deploy" die Änderungen im Flow gesichert werden und
 
 In VisualStudio Code die Datei „ InfluxDB“ mit Docker starten.
 Ist der Contaier erfolgreich hoch gefahren, kann man sich mit den Daten aus der .env in Grafana einloggen. Dort sollte als erstes die Verbindung zur Datenbank hergestellt werden.
-(Bild)
-![Grafana-Datenbank-Connect](https://github.com/sirdrake51/measuring_from_keller_pressure/grafana/grafana-source-connect.png)
+
+![Grafana-Datenbank-Connect](https://raw.githubusercontent.com/sirdrake51/keller_nordost/master/influxdb/grafana-source-connect.png)
 
 Die Adresse sollte die gleiche sein wie unter NodeRed eingestellt. Der Datanbankname, der User und das Passwort kommen wieder aus der .env.
 Anmerkung: sollte localhost nicht funktionieren, dann hat es mit der IP des Containers von Influx funktioniert. Die erhält man in der Ansciht der Container des Docker-Plugins Portainer
@@ -96,14 +101,15 @@ name: measurements
 name
 Testdaten
 ``
-Damit können die Daten aus dem Things Network in die Datenbank fließen.
+So wäre alles in Ordnung und damit können die Daten aus dem Things Network in die Datenbank fliessen.
 
 **Grafana**
+
 Passend zu den Keller Geräten (hier ADT1) sind im Verzeichniss enige Beispieldashboard und die Werte aus der influxdb zu viaualisieren. Achtung auch hier müssen die Werte mit denen angepasst werden, die aus der InfluxDB kommen.
 Man kann diese in der Dasboardanschicht einfach importieren. Eines, das Log der Spannungen sieht zum Beispiel so aus.
-![488c093fd94167626806b5f344fc8548.png](resources/e037854830c94351ad64c216c24dab91.png)
 
-![Grafana-Beispiel-Dashboard](https://github.com/sirdrake51/measuring_from_keller_pressure/grafana/grafana-dashboard-adt-volt.png)
+![Grafana-Beispiel-Dashboard](https://raw.githubusercontent.com/sirdrake51/keller_nordost/master/influxdb/grafana-dashboard-adt-volt.png)
+
 Hinweis dazu: bei diesen Templates müssen aber die Abfragen komplett neu aus der eigenen InfluxDB aufgebaut werden. 
 
 
