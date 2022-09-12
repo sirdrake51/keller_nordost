@@ -22,31 +22,44 @@ Getested wurde alles unter MacOs 12.
 
 ### Configuration
 
+**VisualStudioCode**
+
 Zunächst das Githab Respository in ein lokales Verzeichnis clonen.
-Das lokale Verzeichnis mit VisualStudio Code öffnen.
+Dieses lokale Verzeichnis mit VisualStudio Code öffnen.
+
 ![Visual-Studio](https://raw.githubusercontent.com/sirdrake51/keller_nordost/master/visualstudio.png)
 
-Docker-Desktop öffnen und im Plugin Portainer ein neues Netzwerk mit dem Namen Keller anlegen, da wird für die Kommunikation der Container untereinander benötigt.
+
+**Docker-Desktop**
+Docker-Desktop öffnen und im Plugin Portainer ein neues Netzwerk mit dem Namen Keller anlegen. 
+Das wird für die Kommunikation der beiden Container untereinander benötigt.
 
 ![Portainer-Network](https://raw.githubusercontent.com/sirdrake51/keller_nordost/master/portainer-network.png)
 
+
 **NodeRed**
-In VisualStudio Code die Datei „ Nodered“ mit Docker starten.
+Nun in VisualStudio Code die Datei „ docker-compose-noderedV3.yml“ mit Docker starten. 
+Das funktioniert mit einem einfachen Mouseclick, sofern oben die Docker-Erweiterung installiert ist.
 
 ![VisualStudio-compose](https://raw.githubusercontent.com/sirdrake51/keller_nordost/master/visualstudio-compose.png)
 
+Die Compose-Datei wird jetzt via Docker gestartet. Nach einigen Sekunden sollte Docker damit fertig sein.
 Im Webbrowser sollte unter [nodered](http://localhost:1880) die Weboberfläche von NodeRed gestartet sein.
 
 ![Nodered-Menu](https://raw.githubusercontent.com/sirdrake51/keller_nordost/master/nodered/nodered-menu.png)
 
 In NodeRed nun unter dem „drei Strich Menü" den Flow aus dem GitHub Verzeichnis importieren.
-Nach dem Import erscheint die Fehlermeldung des nicht installierten NodeRed Plugins „influx“.  Das sollte noch nach installiert werden, unter Pallette verwalten.
+Nach dem Import erscheint die Fehlermeldung des nicht installierten NodeRed Plugins „influx“.
+Das sollte noch nach installiert werden, unter Pallette verwalten.
 
 ![Influx-Plugin](https://raw.githubusercontent.com/sirdrake51/keller_nordost/master/nodered-install-influxdb.png)
 
-Danach müssen für TTN und für Influx die korrekten Verbindungen her gerichtet werden. Dies umfasst die User und Passwörter nebst der Token (ja nach APP). Siehe dazu auch
+Danach müssen für TTN und für Influx die korrekten Verbindungen her gerichtet werden. Dies umfasst die User und Passwörter nebst der Token (ja nach APP). 
+Siehe dazu auch
 [TTN-NodeRed](https://www.thethingsindustries.com/docs/integrations/node-red/)
-Bei der IP-Adresse der Influx Datenbank muss die verwendet werden, die der influx Container nutzt. Demnach ist dies nicht etwa localhost sondern beispielsweise 172.19.0.2 - diese Adrasse sieht man am besten in der Containeransicht von Portainer.
+Bei der IP-Adresse der Influx Datenbank muss die verwendet werden, die der influx Container nutzt. 
+Demnach ist dies nicht etwa localhost sondern beispielsweise 172.19.0.2 
+Diese Adrasse sieht man am besten in der Containeransicht von Portainer.
 Ist das erledigt, kann mit "deploy" die Änderungen im Flow gesichert werden und dieser wird neu gestartet. Mittels debug kann man dann kontrollieren, ob der Datentransfer funktioniert.
 
 **Influx_DB**
