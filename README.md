@@ -1,7 +1,15 @@
 # keller_nordost
 tests für keller-druckmesstechnik
-# Daten von Keller Messgeräten via NodeRed in InfluxDB speichern und via Grafana auswerten
+## Daten von Keller Messgeräten via NodeRed in InfluxDB speichern und via Grafana auswerten
+# Vorwort
+Aktuell wird hier nur der Datenaustausch via Things-Network behandelt. Später soll noch folgendes integriert werden:
+-RestAPI Colibri-Cloud
+-eventuell FTP-Daten (ADT und ARC)
+-ModBus-RTU Devices
 
+Bei allen nachfolgend vorgestellten Applikationen wurde nicht auf die Datensicherheit geachtet. 
+Damit ist alles hier vorgestellte nicht für den dauerhaften Betrieb geeignet.
+Vor Nutzung sollten zumindest sinnvolle Passwörter gewählt werden (.env Datei).
 
 ## Vorraussetzungen
 * Docker-Desktop https://docs.docker.com/desktop/
